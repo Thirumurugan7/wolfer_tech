@@ -24,8 +24,8 @@
     <div class="container flex-lg-row flex-nowrap align-items-center">
       <div class="navbar-brand w-100">
         <a href="/">
-          <img class="logo-dark" src=" {{ logo.image.url }}" class="mr-2" srcset=" {{ logo.image.url }} 6x" alt="" />
-          <img class="logo-light" src=" {{ logo.image.url }}" srcset=" {{ logo.image.url }} 6x" alt="" />
+          <img class="logo-dark" src=" {{ logo.image.url }}" class="w-100" srcset=" {{ logo.image.url }} 5x" alt="" style="width: 85px; height: 48px;" />
+          <img class="logo-light" src=" {{ logo.image.url }}" class="w-100" srcset=" {{ logo.image.url }} 5x" alt="" style="width: 85px; height: 48px;" />
         </a>
       </div>
       <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
@@ -160,7 +160,7 @@
                       >
                     </li>
                     <li class="nav-item">
-                      <a class="dropdown-item" href="/edi"
+                      <a class="dropdown-item" href="#"
                         >Ministry of Education</a
                       >
                     </li>
@@ -284,14 +284,14 @@
                       <div style="margin-left: 30px;">
                       <h6 >Government Aided Funding</h6>
                       <ul class="list-unstyled cc-2">
-                        <li style="padding-left: 60px;">
+                        <li style="padding-left: 10px;">
                           <a
                             class="dropdown-item" href="/stategovtfunds"
                             
                             >State Government Funding</a
                           >
                         </li>
-                        <li style="padding-left: 60px;">
+                        <li style="padding-left: 10px;">
                           <a
                             class="dropdown-item" href="/CentralGovernmentFunding"
                             
@@ -304,14 +304,14 @@
                     <div style="margin-left: 30px; margin-top: 20px;">
                       <h6> Private Aided Funding</h6>
                       <ul class="list-unstyled cc-2">
-                        <li style="padding-left: 60px;">
+                        <li style="padding-left: 10px;">
                           <a
                             class="dropdown-item" href="/angelInvestor"
                         
                             >Angel Investors</a
                           >
                         </li>
-                        <li style="padding-left: 60px;">
+                        <li style="padding-left: 10px;">
                           <a
                             class="dropdown-item" href="new_ventures"
                            
@@ -340,17 +340,17 @@
                 ><span
                   class="__cf_email__"
                   data-cfemail="4f262129200f2a222e2623612c2022"
-                  >cii@gmail.com</span
+                  >{{ cs.0.E_Mail }}</span
                 ></a
               >
               <br />
-              +91 9847237890 <br />
+              {{ cs.0.Phone_number }}<br />
               <nav class="nav social social-white mt-4">
-                <a href="#"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
-                <a href="#"><iconify-icon icon="uil:facebook"></iconify-icon></a>
-              
-                <a href="#"><iconify-icon icon="ph:instagram-logo-light"></iconify-icon></a>
-                <a href="#"><iconify-icon icon="circum:youtube"></iconify-icon></a>
+                <a href="{{ SocialMediaLinks.0.Twitter }}"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
+                <a href="{{ SocialMediaLinks.0.Facebook }}"><iconify-icon icon="uil:facebook"></iconify-icon></a>
+   
+                <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="ph:instagram-logo" ></iconify-icon></a>
+                <a href="{{ SocialMediaLinks.0.LinkedIn }}"><iconify-icon icon="circum:linkedin"></iconify-icon></a>
               </nav>
               <!-- /.social -->
             </div>
@@ -398,24 +398,16 @@
           <!-- /.widget -->
        
           <!-- /.widget -->
-          <div class="widget mb-8">
-            <h4 class="widget-title text-white mb-3">Learn More</h4>
-            <ul class="list-unstyled">
-              <li><a href="#">Our Story</a></li>
-              <li><a href="#">Terms of Use</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Contact Us</a></li>
-            </ul>
-          </div>
+         
           <!-- /.widget -->
           <div class="widget">
             <h4 class="widget-title text-white mb-3">Follow Us</h4>
             <nav class="nav social social-white">
-              <a href="#"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
-              <a href="#"><iconify-icon icon="uil:facebook"></iconify-icon></a>
-            
-              <a href="#"><iconify-icon icon="ph:instagram-logo-light"></iconify-icon></a>
-              <a href="#"><iconify-icon icon="circum:youtube"></iconify-icon></a>
+              <a href="{{ SocialMediaLinks.0.Twitter }}"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
+              <a href="{{ SocialMediaLinks.0.Facebook }}"><iconify-icon icon="uil:facebook"></iconify-icon></a>
+ 
+              <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="ph:instagram-logo" ></iconify-icon></a>
+              <a href="{{ SocialMediaLinks.0.LinkedIn }}"><iconify-icon icon="circum:linkedin"></iconify-icon></a>
             </nav>
             <!-- /.social -->
           </div>
@@ -500,103 +492,8 @@
           {{ StateGovtFundEligibilitySection.0.Point_3 }}
         </li>
       </ul>
-      <!-- <h3 class="display-4 mb-5">IVP Grant Recipients</h3>
-
-      <table class="table table-responsive">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Applicant Comapny Name</th>
-            <th scope="col">Name</th>
-            <th scope="col">Project Title</th>
-            <th scope="col">Voucher Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>RaVikas</td>
-            <td>Ravi Senji</td>
-            <td>Health & Sanitation on Wheels</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>ReKindle Automations Pvt Ltd</td>
-            <td>Radhakrishnan Jothiram</td>
-            <td>
-              A Smart Intravenous dripper system for centralised monitoring and
-              automatic control of Intravenous fluid
-            </td>
-            <td>B</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>AGRIT GREENHOUSE SOLUTIONS PVT LTD</td>
-            <td>Kannan ganapathy</td>
-            <td>
-              Automation of climate control inside a naturally ventilated
-              Polyhouse(Green house)
-            </td>
-            <td>B</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>WEGOT Utility Solutions</td>
-            <td>H. Mohideen</td>
-            <td>Wisdom water management system for Agriculture Sector</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>Cell2Cure Therapies Pvt Ltd</td>
-            <td>Dr.Nithyakalyani</td>
-            <td>
-              Human Pancreatic Islet Transplantation to cure Diabetes in India
-            </td>
-            <td>B</td>
-          </tr>
-          <tr>
-            <th scope="row">6</th>
-            <td>OMG LABS PVT LTD</td>
-            <td>Radhakrishnan Jothiram</td>
-            <td>Protein extraction from Mealworm</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <th scope="row">7</th>
-            <td>Shrimp Hoard Technologies Pvt. Ltd</td>
-            <td>Shusil kumar paul pandi</td>
-            <td>Sensor based smart water quality monitoring for agriculture</td>
-            <td>B</td>
-          </tr>
-          <tr>
-            <th scope="row">8</th>
-            <td>Falcon - D</td>
-            <td>Radhakrishnan Jothiram</td>
-            <td>
-              Warehouse Maintenance using Dynamic Drone Based Static Solutions
-            </td>
-            <td>B</td>
-          </tr>
-          <tr>
-            <th scope="row">9</th>
-            <td>KARDLE Industries Private Limited</td>
-            <td>Mr.M.S.Vijaya komagan</td>
-            <td>BIOTORR- THE Next Gen Bioreactor</td>
-            <td>B</td>
-          </tr>
-          <tr>
-            <th scope="row">10</th>
-            <td>Impensus Electronics Pvt. Ltd.</td>
-            <td>Dinesh Narayanan</td>
-            <td>Cold room atmosphere control system</td>
-            <td>A</td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
-
+    
+    
 
   </div>
   <section id="snippet-3" class="wrapper bg-light wrapper-border">
@@ -625,7 +522,6 @@
                 <h4 class="widget-title text-white mb-3">Quick Links</h4>
                 <ul class="list-unstyled text-reset mb-0">
                   <li><a href="/team">Team</a></li>
-                  <li><a href="#">Policy</a></li>
                  
                   <li><a href="/ourstartups">Our Startup</a></li>
                   <li><a href="/gallery">Gallery</a></li>
@@ -684,7 +580,7 @@
               <a href="{{ SocialMediaLinks.0.Twitter }}"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
               <a href="{{ SocialMediaLinks.0.Facebook }}"><iconify-icon icon="uil:facebook"></iconify-icon></a>
             
-              <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="ph:instagram-logo" style="color: white;"></iconify-icon></a>
+              <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="ph:instagram-logo" ></iconify-icon></a>
               <a href="{{ SocialMediaLinks.0.LinkedIn }}"><iconify-icon icon="circum:linkedin"></iconify-icon></a>
             </nav>
             <!-- /.social -->

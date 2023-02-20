@@ -22,8 +22,8 @@
         <div class="container flex-lg-row flex-nowrap align-items-center">
           <div class="navbar-brand w-100">
             <a href="/">
-              <img class="logo-dark" src=" {{ logo.image.url }}" class="mr-2" srcset=" {{ logo.image.url }} 6x" alt="" />
-              <img class="logo-light" src=" {{ logo.image.url }}" srcset=" {{ logo.image.url }} 6x" alt="" />
+              <img class="logo-dark" src=" {{ logo.image.url }}" class="w-100" srcset=" {{ logo.image.url }} 5x" alt="" style="width: 85px; height: 48px;" />
+              <img class="logo-light" src=" {{ logo.image.url }}" class="w-100" srcset=" {{ logo.image.url }} 5x" alt="" style="width: 85px; height: 48px;" />
             </a>
           </div>
           <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
@@ -157,7 +157,7 @@
                           >
                         </li>
                         <li class="nav-item">
-                          <a class="dropdown-item" href="/edi"
+                          <a class="dropdown-item" href="#"
                             >Ministry of Education</a
                           >
                         </li>
@@ -265,7 +265,7 @@
                             </li>
                             <li>
                               <a
-                                class="dropdown-item"
+                                class="dropdown-item" href="#"
                                 
                                 >Startup Tools</a
                               >
@@ -281,14 +281,14 @@
                           <div style="margin-left: 30px;">
                           <h6 >Government Aided Funding</h6>
                           <ul class="list-unstyled cc-2">
-                            <li style="padding-left: 60px;">
+                            <li style="padding-left: 10px;">
                               <a
                                 class="dropdown-item" href="/stategovtfunds"
                                 
                                 >State Government Funding</a
                               >
                             </li>
-                            <li style="padding-left: 60px;">
+                            <li style="padding-left: 10px;">
                               <a
                                 class="dropdown-item" href="/CentralGovernmentFunding"
                                 
@@ -301,14 +301,14 @@
                         <div style="margin-left: 30px; margin-top: 20px;">
                           <h6> Private Aided Funding</h6>
                           <ul class="list-unstyled cc-2">
-                            <li style="padding-left: 60px;">
+                            <li style="padding-left: 10px;">
                               <a
                                 class="dropdown-item" href="/angelInvestor"
                             
                                 >Angel Investors</a
                               >
                             </li>
-                            <li style="padding-left: 60px;">
+                            <li style="padding-left: 10px;">
                               <a
                                 class="dropdown-item" href="new_ventures"
                                
@@ -337,17 +337,17 @@
                     ><span
                       class="__cf_email__"
                       data-cfemail="4f262129200f2a222e2623612c2022"
-                      >cii@gmail.com</span
+                      >{{ cs.0.E_Mail }}</span
                     ></a
                   >
                   <br />
-                  +91 9847237890 <br />
+                  {{ FooterEditPage.0.PhoneNumber }}  <br />
                   <nav class="nav social social-white mt-4">
-                    <a href="#"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
-                    <a href="#"><iconify-icon icon="uil:facebook"></iconify-icon></a>
-                  
-                    <a href="#"><iconify-icon icon="ph:instagram-logo-light"></iconify-icon></a>
-                    <a href="#"><iconify-icon icon="circum:youtube"></iconify-icon></a>
+                    <a href="{{ SocialMediaLinks.0.Twitter }}"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
+                    <a href="{{ SocialMediaLinks.0.Facebook }}"><iconify-icon icon="uil:facebook"></iconify-icon></a>
+       
+                    <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="ph:instagram-logo" ></iconify-icon></a>
+                    <a href="{{ SocialMediaLinks.0.LinkedIn }}"><iconify-icon icon="circum:linkedin"></iconify-icon></a>
                   </nav>
                   <!-- /.social -->
                 </div>
@@ -617,8 +617,8 @@
                   <h4 class="widget-title text-white mb-3">Quick Links</h4>
                   <ul class="list-unstyled text-reset mb-0">
                     <li><a href="#">Team</a></li>
-                    <li><a href="#">Policy</a></li>
-                    <li><a href="#">Events & Awards</a></li>
+                  
+                  
                     <li><a href="#">Our Startup</a></li>
                     <li><a href="#">Gallery</a></li>
                     <li><a href="#">Career</a></li>
@@ -631,10 +631,9 @@
                 <div class="widget">
                   <h4 class="widget-title text-white mb-3">Government Funding</h4>
                   <ul class="list-unstyled mb-0">
-                    <li><a href="#">BIRAC - Bionest</a></li>
-                    <li><a href="#">SISFS</a></li>
-                    <li><a href="#">EDII-IVP</a></li>
-                 
+                    <li><a href="/birac">BIRAC - Bionest</a></li>
+                    <li><a href="/sisfs">SISFS</a></li>
+                    <li><a href="/EDI">EDII-IVP</a></li>
                   </ul>
                 </div>
                 <!-- /.widget -->
@@ -643,19 +642,18 @@
                 <div class="widget">
                   <h4 class="widget-title text-white mb-3">Mentor Connect</h4>
                   <ul class="list-unstyled mb-0">
-                    <li><a href="#">Business Mentors</a></li>
-                    <li><a href="#">Financial Mentors</a></li>
-                    <li><a href="#">Life Sciences Mentors</a></li>
-                    <li><a href="#">Technical Mentors</a></li>
-          
+                    <li><a href="/Mentor_Connect">Business Mentors</a></li>
+                    <li><a href="/Mentor_Connect">Financial Mentors</a></li>
+                    <li><a href="/Mentor_Connect">Life Sciences Mentors</a></li>
+                    <li><a href="/Mentor_Connect">Technical Mentors</a></li>
                   </ul>
                 </div>
                 <div class="widget">
                     <h4 class="widget-title text-white mb-3">Market Connect</h4>
                     <ul class="list-unstyled mb-0">
-                      <li><a href="#">Global Market Connect</a></li>
+                      <li><a href="/globalMarket">Global Market Connect</a></li>
                       <li><a href="#">Launch Pad</a></li>
-                      <li><a href="#">Demo Day
+                      <li><a href="/demoday">Demo Day
                     </a></li>
                       <li><a href="#">Startup Tools</a></li>
             
@@ -676,7 +674,7 @@
                 <a href="{{ SocialMediaLinks.0.Twitter }}"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
                 <a href="{{ SocialMediaLinks.0.Facebook }}"><iconify-icon icon="uil:facebook"></iconify-icon></a>
               
-                <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="logos:instagram-icon"></iconify-icon></a>
+                <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="uil:instagram"></iconify-icon></a>
                 <a href="{{ SocialMediaLinks.0.LinkedIn }}"><iconify-icon icon="circum:linkedin"></iconify-icon></a>
               </nav>
               <!-- /.social -->

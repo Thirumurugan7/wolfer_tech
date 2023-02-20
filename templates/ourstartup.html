@@ -24,8 +24,8 @@
     <div class="container flex-lg-row flex-nowrap align-items-center">
       <div class="navbar-brand w-100">
         <a href="/">
-          <img class="logo-dark" src=" {{ logo.image.url }}" class="mr-2" srcset=" {{ logo.image.url }} 6x" alt="" />
-          <img class="logo-light" src=" {{ logo.image.url }}" srcset=" {{ logo.image.url }} 6x" alt="" />
+          <img class="logo-dark" src=" {{ logo.image.url }}" class="w-100" srcset=" {{ logo.image.url }} 5x" alt="" style="width: 85px; height: 48px;" />
+          <img class="logo-light" src=" {{ logo.image.url }}" class="w-100" srcset=" {{ logo.image.url }} 5x" alt="" style="width: 85px; height: 48px;" />
         </a>
       </div>
       <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
@@ -159,7 +159,7 @@
                       >
                     </li>
                     <li class="nav-item">
-                      <a class="dropdown-item" href="/edi"
+                      <a class="dropdown-item" href="#"
                         >Ministry of Education</a
                       >
                     </li>
@@ -283,14 +283,14 @@
                       <div style="margin-left: 30px;">
                       <h6 >Government Aided Funding</h6>
                       <ul class="list-unstyled cc-2">
-                        <li style="padding-left: 60px;">
+                        <li style="padding-left: 10px;">
                           <a
                             class="dropdown-item" href="/stategovtfunds"
                             
                             >State Government Funding</a
                           >
                         </li>
-                        <li style="padding-left: 60px;">
+                        <li style="padding-left: 10px;">
                           <a
                             class="dropdown-item" href="/CentralGovernmentFunding"
                             
@@ -303,16 +303,16 @@
                     <div style="margin-left: 30px; margin-top: 20px;">
                       <h6> Private Aided Funding</h6>
                       <ul class="list-unstyled cc-2">
-                        <li style="padding-left: 60px;">
+                        <li style="padding-left: 10px;">
                           <a
                             class="dropdown-item" href="/angelInvestor"
                         
                             >Angel Investors</a
                           >
                         </li>
-                        <li style="padding-left: 60px;">
+                        <li style="padding-left: 10px;">
                           <a
-                            class="dropdown-item" href="new_ventures"
+                            class="dropdown-item" href="/new_ventures"
                            
                             >Venture Capitalist</a
                           >
@@ -338,18 +338,18 @@
                 class="link-inverse"
                 ><span
                   class="__cf_email__"
-                  data-cfemail="4f262129200f2a222e2623612c2022"
-                  >cii@gmail.com</span
+                
+                  >{{ cs.0.E_Mail }}</span
                 ></a
               >
               <br />
-              +91 9847237890 <br />
+              {{ cs.0.Phone_number }}<br />
               <nav class="nav social social-white mt-4">
-                <a href="#"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
-                <a href="#"><iconify-icon icon="uil:facebook"></iconify-icon></a>
-              
-                <a href="#"><iconify-icon icon="ph:instagram-logo-light"></iconify-icon></a>
-                <a href="#"><iconify-icon icon="circum:youtube"></iconify-icon></a>
+                <a href="{{ SocialMediaLinks.0.Twitter }}"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
+                <a href="{{ SocialMediaLinks.0.Facebook }}"><iconify-icon icon="uil:facebook"></iconify-icon></a>
+   
+                <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="ph:instagram-logo" ></iconify-icon></a>
+                <a href="{{ SocialMediaLinks.0.LinkedIn }}"><iconify-icon icon="circum:linkedin"></iconify-icon></a>
               </nav>
               <!-- /.social -->
             </div>
@@ -397,24 +397,16 @@
           <!-- /.widget -->
        
           <!-- /.widget -->
-          <div class="widget mb-8">
-            <h4 class="widget-title text-white mb-3">Learn More</h4>
-            <ul class="list-unstyled">
-              <li><a href="#">Our Story</a></li>
-              <li><a href="#">Terms of Use</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Contact Us</a></li>
-            </ul>
-          </div>
+        
           <!-- /.widget -->
           <div class="widget">
             <h4 class="widget-title text-white mb-3">Follow Us</h4>
             <nav class="nav social social-white">
-              <a href="#"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
-              <a href="#"><iconify-icon icon="uil:facebook"></iconify-icon></a>
-            
-             <a> <iconify-icon icon="ph:instagram-logo-light"></iconify-icon> </a>
-              <a href="#"><iconify-icon icon="circum:youtube"></iconify-icon></a>
+              <a href="{{ SocialMediaLinks.0.Twitter }}"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
+              <a href="{{ SocialMediaLinks.0.Facebook }}"><iconify-icon icon="uil:facebook"></iconify-icon></a>
+ 
+              <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="ph:instagram-logo" ></iconify-icon></a>
+              <a href="{{ SocialMediaLinks.0.LinkedIn }}"><iconify-icon icon="circum:linkedin"></iconify-icon></a>
             </nav>
             <!-- /.social -->
           </div>
@@ -527,7 +519,6 @@
                     <h4 class="widget-title text-white mb-3">Quick Links</h4>
                     <ul class="list-unstyled text-reset mb-0">
                       <li><a href="/team">Team</a></li>
-                      <li><a href="#">Policy</a></li>
                      
                       <li><a href="/ourstartups">Our Startup</a></li>
                       <li><a href="/gallery">Gallery</a></li>
@@ -586,7 +577,7 @@
                   <a href="{{ SocialMediaLinks.0.Twitter }}"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
                   <a href="{{ SocialMediaLinks.0.Facebook }}"><iconify-icon icon="uil:facebook"></iconify-icon></a>
                 
-                  <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="ph:instagram-logo" style="color: white;"></iconify-icon></a>
+                  <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="ph:instagram-logo" ></iconify-icon></a>
                   <a href="{{ SocialMediaLinks.0.LinkedIn }}"><iconify-icon icon="circum:linkedin"></iconify-icon></a>
                 </nav>
                 <!-- /.social -->
@@ -614,13 +605,7 @@
         </div>
         <!-- /.container -->
       </section>
-      <!-- <div class="progress-wrap">  <a href="#"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
-        <svg class="progress-circle svg-content"  width="100%" height="100%" viewBox="-1 -1 102 102">
-          <a href="#"><iconify-icon icon="ph:instagram-logo-light"></iconify-icon></a>
-          <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-        </svg>
-        <a href="#"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
-      </div> -->
+    
       <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
       <script data-cfasync="false" src=" {% static 'cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %} "></script>
       <script src=" {% static 'assets/js/plugins.js' %} "></script>
@@ -630,5 +615,4 @@
     </body>
     
     
-    <!-- Mirrored from sandbox.elemisthemes.com/demo15.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Jan 2023 16:38:59 GMT -->
     </html>
