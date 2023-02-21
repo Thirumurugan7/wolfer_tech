@@ -208,6 +208,18 @@
             </div>
           </li>
           <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#cat" aria-expanded="false" aria-controls="auth">
+              <iconify-icon icon="fluent:document-footer-20-filled" width="20" height="20"></iconify-icon>
+              <span class="menu-title ml-4 pt-1">Categories</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="cat">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/category ">Category edit page </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
               <iconify-icon icon="carbon:data-1" width="20" height="20"></iconify-icon>
               <span class="menu-title ml-4 pt-1">Forms data Download</span>
@@ -245,8 +257,13 @@
                   <form class="forms-sample" enctype="multipart/form-data" method="post">
                     {% csrf_token %}
                     <div class="form-group">
-                      <label for="exampleInputEmail1">categories</label>
-                      <input type="text" class="form-control" placeholder="Category" id="Category" name="Category">
+                      <label for="cars">categories</label>
+                              <select class="form-control" name="Category" id="Category">
+                                {% for i in CategoryforGallery %}
+                                <option value="{{ i.cat_val }}">{{ i.cat_val }}</option>
+                                {% endfor %}
+                        
+                              </select>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">image</label>
@@ -300,12 +317,7 @@
                     mimeType: "multipart/form-data",
                     data: data,
                     success: function(data) {
-                        if (data.status == "Upload Done") {
-                            console.log("Uploading Done successfully")
-                        }
-                        else{
-                            console.log('error')
-                        }
+                       window.location.reload()
                     }
                 })
             }

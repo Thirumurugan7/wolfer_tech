@@ -191,6 +191,18 @@
             </div>
           </li>
           <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#cat" aria-expanded="false" aria-controls="auth">
+              <iconify-icon icon="fluent:document-footer-20-filled" width="20" height="20"></iconify-icon>
+              <span class="menu-title ml-4 pt-1">Categories</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="cat">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/category ">Category edit page </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
               <iconify-icon icon="material-symbols:settings-suggest-rounded" width="20" height="20"></iconify-icon>
               <span class="menu-title">Forms data Download</span>
@@ -279,7 +291,7 @@
   </div>
   <script>
         function img_upload(url,img,datas) {
-                console.log(datas,img)
+               
                 var data = new FormData();
                 data.append(img, $(img)[0].files[0]);
                 data.append("csrfmiddlewaretoken", $("input[name=csrfmiddlewaretoken]").val());
@@ -294,12 +306,7 @@
                     mimeType: "multipart/form-data",
                     data: data,
                     success: function(data) {
-                        if (data.status == "Upload Done") {
-                            console.log("Uploading Done successfully")
-                        }
-                        else{
-                            console.log('error')
-                        }
+                       window.location.reload()
                     }
                 })
               }

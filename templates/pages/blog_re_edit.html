@@ -200,6 +200,18 @@
                   </div>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link" data-toggle="collapse" href="#cat" aria-expanded="false" aria-controls="auth">
+                    <iconify-icon icon="fluent:document-footer-20-filled" width="20" height="20"></iconify-icon>
+                    <span class="menu-title ml-4 pt-1">Categories</span>
+                    <i class="menu-arrow"></i>
+                  </a>
+                  <div class="collapse" id="cat">
+                    <ul class="nav flex-column sub-menu">
+                      <li class="nav-item"> <a class="nav-link" href="/category ">Category edit page </a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
                     <iconify-icon icon="carbon:data-1" width="20" height="20"></iconify-icon>
                     <span class="menu-title ml-4 pt-1">Forms data Download</span>
@@ -249,9 +261,14 @@
                                           <input type="text" value="{{ obj.blog_profile_img }}" class="border-2 border-gray-300 p-2 w-full" name="Thumbnail" id="Thumbnail" placeholder="(Optional)">
                                       </div>
 
-                                      <div class="mb-4">
-                                          <label class="text-xl text-gray-600">Category</label></br>
-                                          <input type="text" value="{{ obj.categories }}" class="border-2 border-gray-300 p-2 w-full" name="Category" id="Category" placeholder="(Optional)">
+                                      <div class="form-group mb-4">
+                                        <label for="cars">categories</label>
+                                                <select class="form-control" name="Category" id="Category">
+                                                  {% for i in CategoryforBlogs %}
+                                                  <option value="{{ i.cat_val }}">{{ i.cat_val }}</option>
+                                                  {% endfor %}
+                                          
+                                                </select>
                                       </div>
 
                                       <div class="mb-8">
@@ -306,13 +323,13 @@
               });
             function img_upload(url,con,datas,num) {
                 
-                console.log(datas,url)
+              
                 var data = new FormData();
                 data.append(con,editor2.getData())
                 data.append("csrfmiddlewaretoken", $("input[name=csrfmiddlewaretoken]").val());
                 data.append("id","num")
 
-                console.log(num)
+                
                 for(let i=0;i<datas.length;i++){
                   data.append(datas[i],$(datas[i]).val())
                 }
@@ -324,12 +341,7 @@
                     mimeType: "multipart/form-data",
                     data: data,
                     success: function(data) {
-                        if (data.status == "Upload Done") {
-                            console.log("Uploading Done successfully")
-                        }
-                        else{
-                            console.log('error')
-                        }
+                       window.location.reload()
                     }
                 })
               }

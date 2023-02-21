@@ -291,7 +291,7 @@
             
             function img_upload(url,con,datas) {
                 
-                console.log(datas,url)
+               
                 var data = new FormData();
                 data.append(con,editor2.getData())
                 data.append("csrfmiddlewaretoken", $("input[name=csrfmiddlewaretoken]").val());
@@ -306,12 +306,7 @@
                     mimeType: "multipart/form-data",
                     data: data,
                     success: function(data) {
-                        if (data.status == "Upload Done") {
-                            console.log("Uploading Done successfully")
-                        }
-                        else{
-                            console.log('error')
-                        }
+                       window.location.reload()
                     }
                 })
               }

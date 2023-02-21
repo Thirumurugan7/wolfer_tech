@@ -200,6 +200,18 @@
           </div>
         </li>
         <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#cat" aria-expanded="false" aria-controls="auth">
+            <iconify-icon icon="fluent:document-footer-20-filled" width="20" height="20"></iconify-icon>
+            <span class="menu-title ml-4 pt-1">Categories</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="cat">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="/category ">Category edit page </a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
             <iconify-icon icon="carbon:data-1" width="20" height="20"></iconify-icon>
             <span class="menu-title ml-4 pt-1">Forms data Download</span>
@@ -579,6 +591,25 @@
                    </div>
                  </div>
                </div>
+               <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                  
+                    <!-- <h4 class=" my-1" >Upload Image</h4> -->
+                    <!-- <p class="card-description">
+                     Upload image to  the home slider
+                    </p> -->
+                    <form class="forms-sample" enctype="multipart/form-data" method="post">
+                      {% csrf_token %}
+                      <div class="form-group mt-2">
+                        <label for="exampleInputEmail1">Home's Pdf Link</label>
+                        <input type="text" class="form-control" placeholder="" id="link" value="{{ link.0.link }}" name="Appear-on-to-of-image"><br>
+                        <button id="btn" onclick="send_data('HomePdfLink_save',['#link'])" class="btn btn-primary mr-2">Submit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
            
                <!-- <section class="overflow-hidden text-gray-700 ">
                    {% for i in team %}
@@ -617,7 +648,7 @@
   <script>
        function send_data(url,datas) {
                 
-                console.log(datas,url)
+              
                 var data = new FormData();
                 data.append("csrfmiddlewaretoken", $("input[name=csrfmiddlewaretoken]").val());
                 for(let i=0;i<datas.length;i++){
@@ -631,17 +662,12 @@
                     mimeType: "multipart/form-data",
                     data: data,
                     success: function(data) {
-                        if (data.status == "Upload Done") {
-                            console.log("Uploading Done successfully")
-                        }
-                        else{
-                            console.log('error')
-                        }
+                       window.location.reload()
                     }
                 })
               }
               function img_upload(url,img,datas) {
-                console.log(datas,img)
+               
                 var data = new FormData();
                 data.append(img, $(img)[0].files[0]);
                 data.append("csrfmiddlewaretoken", $("input[name=csrfmiddlewaretoken]").val());
@@ -656,12 +682,7 @@
                     mimeType: "multipart/form-data",
                     data: data,
                     success: function(data) {
-                        if (data.status == "Upload Done") {
-                            console.log("Uploading Done successfully")
-                        }
-                        else{
-                            console.log('error')
-                        }
+                       window.location.reload()
                     }
                 })
               }

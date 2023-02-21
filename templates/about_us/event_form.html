@@ -397,20 +397,14 @@
                   Please provide a valid email address.
                 </div>
               </div>
-              <div class="form-floating mb-4">
-                <input
-                  id="event"
-                  type="text"
-                  name="event"
-                  class="form-control"
-                  placeholder="Event"
-                  required="required"
-                  data-error="Name is required."
-                />
-                <label for="form_name2">Event *</label>
-
-                <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">Please enter the Event.</div>
+              <div class="form-group mb-4">
+                <label for="cars">Events</label>
+                        <select class="form-control" name="Category" id="Category">
+                          {% for i in CategoryforEvents %}
+                          <option value="{{ i.cat_val }}">{{ i.cat_val }}</option>
+                          {% endfor %}
+                  
+                        </select>
               </div>
               <div
                 style="
@@ -612,7 +606,7 @@
         });
       }
       function img_upload(url, img, datas) {
-        console.log(datas, img);
+      
         var data = new FormData();
         data.append(img, $(img)[0].files[0]);
         data.append(
@@ -630,11 +624,7 @@
           mimeType: "multipart/form-data",
           data: data,
           success: function (data) {
-            if (data.status == "Upload Done") {
-              console.log("Uploading Done successfully");
-            } else {
-              console.log("error");
-            }
+            window.location.reload();
           },
           error: function (error) {
             alert(

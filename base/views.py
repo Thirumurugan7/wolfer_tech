@@ -1,19 +1,22 @@
-from django.shortcuts import render,redirect
-from .models import (Gallery,Team,logo,Carrer,blog,Testimonials,Events,HowWeWork,Birac,Tbi,DemoDayTOPSECTION,DemoDayPic,CentralGovernmentFundingDB,
-                    ContactEditPage,fishieries,EDI_TOPSECTION,SamridthFund,Start_UpTN,StateGovtFund,OurStartup,Investors,AboutHeading,MBADB,Govt_Tie,LastContent,UploadImage,GlobalMarket,GlobalMarketPic,stateGovtFunddb,
-                    FooterEditPage,SocialMediaLinks,EDI_Overview_Section,MeitY_SAMRIDH,Start_UpTNContent2,StateGovtFundSecondSection,International_Partners,Sisfs,WhoAreWe,Contact_SECTION,HOME_TESTIMONIAL,EventsForm,Facilities_developed,About_SISFS,
-                    EDI_InnovationVoucher,EDI_WeAimAtSection,EDI_Eligibility_Section,BundledServices,Start_UpTNimg1,Start_UpTNimg2,StateGovtFundEligibilitySection,MentorConnectDB,MentorClinicDB, angelInvestorDB, new_venturesDB,TOPSECTION,WhatWeDo,OurProcess,SpendingSection,JoinOurCommunity)
+# Reguler and spl Functions
+import datetime, json, openpyxl, mimetypes, os
+
+# DB Tables imports
+from .models import ( Gallery,Team,logo,Carrer,blog,Testimonials,Events,HowWeWork,Birac,Tbi,DemoDayTOPSECTION,DemoDayPic,
+                    CategoryforGallery,CentralGovernmentFundingDB,ContactEditPage,fishieries,EDI_TOPSECTION,SamridthFund,Start_UpTN,StateGovtFund,
+                    CategoryforTeams,OurStartup,Investors,AboutHeading,MBADB,Govt_Tie,LastContent,UploadImage,GlobalMarket,GlobalMarketPic,
+                    CategoryforEvents,FooterEditPage,SocialMediaLinks,EDI_Overview_Section,MeitY_SAMRIDH,Start_UpTNContent2,StateGovtFundSecondSection,
+                    CategoryforQualification,International_Partners,Sisfs,WhoAreWe,Contact_SECTION,HOME_TESTIMONIAL,EventsForm,Facilities_developed,About_SISFS,
+                    CategoryforExperience,EDI_InnovationVoucher,EDI_WeAimAtSection,EDI_Eligibility_Section,BundledServices,Start_UpTNimg1,Start_UpTNimg2,
+                    CategoryforBlogs,StateGovtFundEligibilitySection,MentorConnectDB,MentorClinicDB, angelInvestorDB, new_venturesDB,TOPSECTION,WhatWeDo,
+                    CategoryforStartups,OurProcess,SpendingSection,JoinOurCommunity,HomePdfLink )
+
+# Custom Tools Functions
 from .Tools import get_images,get_team,reguler_datas,get_blog,get_startup,get_DemoDayPic,freguler_datas
-import datetime
-import json
-import openpyxl
-# Import mimetypes module
-import mimetypes
-# import os module
-import os
-# Import HttpResponse module
+
+# Django Functions 
+from django.shortcuts import render,redirect
 from django.http.response import HttpResponse
-# Create your views here.
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -33,7 +36,6 @@ def admin_home_auth(request):
     ids = ['email','password']
     user = request.POST.get(ids[0])
     password = request.POST.get(ids[1])
-    print(user,password)
     user = authenticate(username=user, password=password)
     if user is not None:
         login(request, user)
@@ -84,9 +86,6 @@ def update_team(request):
     image = request.FILES["image_file"]
     db_obj = Team(Name=name,categories=Category,image=image,linkedin=linkedin,position=position)
     db_obj.save()
-    obj = Team.objects.all()
-    for i in obj:
-        print(i.Name,i.image)
 
     return render(request,'pages/team.html')
 
@@ -144,9 +143,6 @@ def update_carrer(request):
     image = request.FILES["#fileInput-single"]
     obj = Carrer(Name=Name,Email=Email,Message=Message,Subject=Subject,qualififcation=qualififcation,experience=experience,image=image)
     obj.save()
-    ob=Carrer.objects.all()
-    for i in ob:
-        print(i.Name)
     return render(request,"about_us/carrer.html")
     
 #............................................................
@@ -166,9 +162,6 @@ def save_blog(request):
 
     obj = blog(title=title,description=description,content=content,categories=Category,blog_profile_img=Thumbnail)
     obj.save()
-    ob = blog.objects.all()
-    for i in ob:
-        print(i.blog_profile_img,i.title,i.content)
 
     return render(request,"pages/blog_edit.html")
 
@@ -187,8 +180,6 @@ def save_edit_blog(request,pk):
     obj.categories = Category
     obj.blog_profile_img = Thumbnail
     obj.save()
-
-    print("Saved...........")
 
     return render(request,"pages/blog_edit.html")
 
@@ -244,7 +235,6 @@ def events_save(request):
     date_formate = datetime.date(int(d[0]), int(d[1]), int(d[2]))
     obj = Events(description=description,type=topic,categories=categories,date=date_formate,image=image)
     obj.save()
-    print("....................saved.......")
     return render(request,"about_us/Events.html",reguler_datas({"card":obj}))
 
 
@@ -275,17 +265,28 @@ def Testimonicals_save(request):
 
     return render(request,"pages/Testimonicals_edit.html",reguler_datas())
 
+def delete_Testimonicals(request):
+    bl_id = request.POST.get("id")
+    print(bl_id)
+    page = Testimonials.objects.get(T_id=bl_id)
+    page.delete()
+    return render(request,"home/view_blog.html",reguler_datas())
+
 #............................................................
 
 #...............birac........................................
 def birac(request):
-    obj = Birac.objects.latest('id')
-    re_view = obj.overview.split(',')
-    topic= {}
-    for i in re_view:
-        if '~' in i:
-           topic[i.split('~')[1]] = i.split('~')[0]
-    print(topic)
+    try :
+        obj = Birac.objects.latest('id')
+        re_view = obj.overview.split(',')
+        topic= {}
+        for i in re_view:
+            if '~' in i:
+                topic[i.split('~')[1]] = i.split('~')[0]
+    except:
+        obj = ''
+        re_view = ''
+        topic = {}
 
     return render(request,"about_us/birac.html",reguler_datas({'birac':obj,'view':topic,'Facilities_developed':Facilities_developed.objects.all()}))
 
@@ -301,10 +302,8 @@ def birac_edit(request):
              if '~' in j:
                 topic[j.split('~')[1]] = j.split('~')[0]
         item.append(topic)
-    print(item)
     for i,x in enumerate(obj):
         birac_[x] = item[i]
-    print(birac_)
     return render(request,"pages/birac_edit.html",reguler_datas({'birac':birac_,'view':item,'Facilities_developed':Facilities_developed.objects.all()}))
 
 def birac_save(request):
@@ -314,7 +313,6 @@ def birac_save(request):
     content = request.POST.get(ids[2])
     tags = request.POST.get(ids[3])
     item=""
-    print(subtitle_)
     res = json.loads(tags)
     for i in res:
         item = item + i.get('value') + ", "
@@ -326,7 +324,6 @@ def birac_save(request):
         obj = Birac.objects.all()[::-1][0]
         obj = Birac(title=title,subtitle=subtitle_,description=content,overview=item,image=obj.image)
         obj.save()
-    print("/..........................................saved................................................../")
     return render(request,"pages/birac_edit.html",reguler_datas())
 
 def delete_birac(request):
@@ -346,7 +343,6 @@ def set_birac(request):
     image.delete()
     obj = Birac(title=title,subtitle=subtitle,description=description,overview=overview,image=images)
     obj.save()
-    print("saved")
     return render(request,"home/logo.html",reguler_datas())
 
 
@@ -393,9 +389,6 @@ def tbi(request):
         obj = ""
         topic = ""
         print("maybe the database are empty.....")
-            
-    print(topic)
-
     return render(request,"about_us/tbi.html",reguler_datas({'birac':obj,"topic":topic}))
 
 @login_required(login_url='/FourNotFout')
@@ -410,10 +403,8 @@ def tbi_edit(request):
              if '~' in j:
                 topic[j.split('~')[1]] = j.split('~')[0]
         item.append(topic)
-    print(item)
     for i,x in enumerate(obj):
         tbi_[x] = item[i]
-    print(tbi_)
     return render(request,"pages/tbi_edit.html",reguler_datas({'birac':tbi_,'view':item}))
 
 def tbi_save(request):
@@ -423,13 +414,11 @@ def tbi_save(request):
     content = request.POST.get(ids[2])
     tags = request.POST.get(ids[3])
     item=""
-    print(subtitle_)
     res = json.loads(tags)
     for i in res:
         item = item + i.get('value') + ", "
     obj = Tbi(title=title,subtitle=subtitle_,description=content,overview=item)
     obj.save()
-    print("/..........................................saved................................................../")
     return render(request,"pages/tbi_edit.html",reguler_datas())
 
 def delete_tbi(request):
@@ -448,7 +437,6 @@ def set_tbi(request):
     image.delete()
     obj = Tbi(title=title,subtitle=subtitle,description=description,overview=overview)
     obj.save()
-    print("saved")
     return render(request,"home/logo.html")
 
 #............................................................
@@ -458,13 +446,16 @@ def sisfs(request):
     try:
         obj = Sisfs.objects.latest('id')
         re_view = obj.overview.split(',')[0:-1]
-        print(re_view)
     except:
         obj = ""
         re_view = ""
         print("maybe the database are empty.....")
+    try :
+        return render(request,"sisfs.html",reguler_datas({'birac':obj,"topic":re_view,'data':Sisfs.objects.latest('id'),'abt':About_SISFS.objects.all()}))
+    except:
+        print("error on sisfs's return statement line...")
+        return render(request,"sisfs.html",reguler_datas())
 
-    return render(request,"sisfs.html",reguler_datas({'birac':obj,"topic":re_view,'data':Sisfs.objects.latest('id'),'abt':About_SISFS.objects.all()}))
 
 @login_required(login_url='/FourNotFout')
 def sisfs_edit(request):
@@ -477,10 +468,8 @@ def sisfs_edit(request):
         for j in i.overview.split(','):
                 topic.append(j)
         item.append(topic)
-    print(item)
     for i,x in enumerate(obj):
         sisfs_[x] = item[i]
-    print(sisfs_)
     return render(request,"pages/sisfs_edit.html",reguler_datas({'birac':sisfs_,'view':item,'sisfs':Sisfs.objects.all(),'About_SISFS':About_SISFS.objects.all()}))
 
 def sisfs_save(request):
@@ -490,7 +479,6 @@ def sisfs_save(request):
     content = request.POST.get(ids[2])
     tags = request.POST.get(ids[3])
     item=""
-    print(subtitle_)
     res = json.loads(tags)
     for i in res:
         item = item + i.get('value') + ", "
@@ -502,8 +490,6 @@ def sisfs_save(request):
         obj = Sisfs.objects.all()[::-1][0]
         obj = Sisfs(title=title,subtitle=subtitle_,description=content,overview=item,image=obj.image)
         obj.save()
-
-    print("/..........................................saved................................................../")
     return render(request,"pages/sisfs_edit.html",reguler_datas())
 
 def delete_sisfs(request):
@@ -523,7 +509,6 @@ def set_sisfs(request):
     image.delete()
     obj = Sisfs(title=title,subtitle=subtitle,description=description,overview=overview,image=images)
     obj.save()
-    print("saved")
     return render(request,"home/logo.html")
 
 
@@ -549,9 +534,6 @@ def update_eventform(request):
     image = request.FILES["#fileInput-single"]
     obj = EventsForm(title=title,Name=Name,Email=Email,linkedin=linkedin,website=website,company=company,event=event,image=image)
     obj.save()
-    ob=EventsForm.objects.all()
-    for i in ob:
-        print(i.Name)
     return render(request,"about_us/carrer.html",reguler_datas())
 
 def delete_form(request):
@@ -560,8 +542,7 @@ def delete_form(request):
     page.delete()
     return render(request,"home/view_blog.html",{'blog':page})
 
-def EDI (request):
-    return render(request,"fund/edi.html",reguler_datas())
+
 
 
 def angelInvestor (request):
@@ -580,7 +561,6 @@ def MontorConnect_save(request):
     if request.POST.get('#page') == 'MentorConnect':
         obj = MentorConnectDB(Content=content)
         obj.save()
-    print("saved.....................................////////////////////////")
     return render(request,"edtior/mentor_connect_edit.html")
 
 
@@ -596,29 +576,24 @@ def Mentor_Clinic_save(request):
     content = request.POST.get('#content')
     obj = MentorClinicDB(Content=content)
     obj.save()
-    print("saved.....................................////////////////////////")
     return render(request,"edtior/Mentor_Clinic_edit.html")
 
 
 def angelInvestor (request):
-    return render(request,"angelInvestor.html",reguler_datas({'mentor':angelInvestorDB.objects.all()[::-1]}))
+    return render(request,"angelInvestor.html",reguler_datas(reguler_datas({'mentor':angelInvestorDB.objects.all()[::-1]})))
 
 @login_required(login_url='/FourNotFout')
 def angelInvestor_edit(request):
-    return render(request,"edtior/angelInvestor_edit.html",{'mentor':angelInvestorDB.objects.all()[::-1]})
+    return render(request,"edtior/angelInvestor_edit.html",reguler_datas({'mentor':angelInvestorDB.objects.all()[::-1]}))
 
 def angelInvestor_save(request):
     content = request.POST.get('#content')
     obj = angelInvestorDB(Content=content)
     obj.save()
-    for i in angelInvestorDB.objects.all():
-        print(i.Content)
-    print("saved.....................................////////////////////////")
     return render(request,"edtior/angelInvestor_edit.html")
 
 def new_ventures (request):
     data = new_venturesDB.objects.all()[::-1]
-    print(data)
     return render(request,"newventures.html",reguler_datas({'mentor':data,'sample':'hi'}))
 
 @login_required(login_url='/FourNotFout')
@@ -629,9 +604,6 @@ def new_ventures_save(request):
     content = request.POST.get('#content')
     obj = new_venturesDB(Content=content)
     obj.save()
-    for i in new_venturesDB.objects.all():
-        print(i.Content)
-    print("saved.....................................////////////////////////")
     return render(request,"edtior/new_ventures_edit.html")
 
 def testimonial (request):
@@ -639,6 +611,13 @@ def testimonial (request):
 
 def career (request):
     return render(request,"carrer.html",reguler_datas())
+
+def HomePdfLink_save(request):
+    val = request.POST.get("#link")
+    obj = HomePdfLink(link=val)
+    obj.save()
+    return render(request,"pages/category.html",reguler_datas())
+
 
 def home(request):
     try :
@@ -648,10 +627,10 @@ def home(request):
         investors = Investors.objects.all()[::-1]
         govt = Govt_Tie.objects.all()[::-1]
         Uploadimage = UploadImage.objects.all()[::-1]
-
+        link = HomePdfLink.objects.all()[::-1]
         
         Internationalpartners = International_Partners.objects.all()[::-1]
-        return render(request,"index.html",reguler_datas({'whoweare':whoweare,'ht':home_TESTIMONIAL,'cs':contact_Section,'investors':investors,'ip':Internationalpartners,'govt':govt,'Uploadimage':Uploadimage}))
+        return render(request,"index.html",reguler_datas({'link':link,'whoweare':whoweare,'ht':home_TESTIMONIAL,'cs':contact_Section,'investors':investors,'ip':Internationalpartners,'govt':govt,'Uploadimage':Uploadimage}))
     except:
         print("maybe database are empty")
     return render(request,"pages/home_edit.html",reguler_datas())
@@ -665,10 +644,10 @@ def home_edit(request):
         investors = Investors.objects.all()[::-1]
         Internationalpartners = International_Partners.objects.all()[::-1]
         govt = Govt_Tie.objects.all()[::-1]
+        link = HomePdfLink.objects.all()[::-1]
         Uploadimage = UploadImage.objects.all()[::-1]
 
-
-        return render(request,"pages/home_edit.html",reguler_datas({'whoweare':whoweare,'ht':home_TESTIMONIAL,'cs':contact_Section,'investors':investors,'ip':Internationalpartners,'govt':govt,'Uploadimage':Uploadimage}))
+        return render(request,"pages/home_edit.html",reguler_datas({'link':link,'whoweare':whoweare,'ht':home_TESTIMONIAL,'cs':contact_Section,'investors':investors,'ip':Internationalpartners,'govt':govt,'Uploadimage':Uploadimage}))
     except:
         print("maybe database are empty")
     return render(request,"pages/home_edit.html",reguler_datas())
@@ -714,9 +693,6 @@ def Whoweare(request):
     obj = WhoAreWe(SubHeading=SubHeading,Point1=Point1,Point2=Point2,Point3=Point3,Point4=Point4,image=image)
     obj.save()
 
-    for i in WhoAreWe.objects.all():
-        print(i.SubHeading)
-
     return render(request,"gallery.html",reguler_datas())
 
 
@@ -734,9 +710,6 @@ def  Home_TESTIMONIAL(request):
     obj = HOME_TESTIMONIAL(Testimonial_content=Testimonial_content,Name=Name,Designation=Designation,image=image)
     obj.save()
 
-    for i in HOME_TESTIMONIAL.objects.all():
-        print(i.Name)
-
     return render(request,"gallery.html",reguler_datas())
 
 def  Contact_Section(request):
@@ -749,9 +722,6 @@ def  Contact_Section(request):
 
     obj = Contact_SECTION(Title=Title,Address=Address,Phone_number=Phone_number,E_Mail=E_Mail)
     obj.save()
-
-    for i in Contact_SECTION.objects.all():
-        print(i.Title)
 
     return render(request,"gallery.html")
 
@@ -768,10 +738,6 @@ def investors(request):
         image.Title = heading
         image.save()
 
-
-    for i in Investors.objects.all():
-        print(i.Title)
-
     return render(request,"gallery.html")
 
 def International(request):
@@ -786,10 +752,6 @@ def International(request):
         image = International_Partners.objects.all()[::-1][0]
         image.Title = heading
         image.save()
-
-
-    for i in International_Partners.objects.all():
-        print(i.Title)
 
     return render(request,"gallery.html")
 
@@ -806,9 +768,6 @@ def GovtTie(request):
         image.Title = heading
         image.save()
 
-    for i in Govt_Tie.objects.all():
-        print(i.Title)
-
     return render(request,"gallery.html")
 
 def Upload_Image(request):
@@ -822,12 +781,12 @@ def Upload_Image(request):
         obj = UploadImage(Title=heading,image=image,content=content)
         obj.save()
     except:
-        image = UploadImage.objects.all()[::-1][0]
-        image.Title = heading
-        image.save()
-
-    for i in UploadImage.objects.all():
-        print(i.Title)
+        try:
+            image = UploadImage.objects.all()[::-1][0]
+            image.Title = heading
+            image.save()
+        except:
+            print("error on uploadm_image function")
 
     return render(request,"gallery.html")
 
@@ -844,7 +803,6 @@ def MBA_save(request):
     content = request.POST.get('#content')
     obj = MBADB(Content=content)
     obj.save()
-    print("saved.....................................////////////////////////")
     return render(request,"edtior/MBA_edit.html",reguler_datas())
 
 def ourStartups (request):
@@ -862,8 +820,6 @@ def ourStartups_save (request):
     image = request.FILES['#fileInput-single']
     obj = OurStartup(Sub_heading=Sub_heading,Name=Name,content=content,categories=categories,image=image)
     obj.save()
-    for i in OurStartup.objects.all():
-        print(i.Name)
 
     return render(request,"pages/ourstartup_edit.html")
 def delete_startup(request):
@@ -951,10 +907,8 @@ def GlobalMarket_save (request):
 def GlobalMarketPic_save (request):
     title = request.POST.get("#pic_title")
     image = request.FILES["#image_load"]
-    print(title)
     obj = GlobalMarketPic(title=title,image=image)
     obj.save()
-    print("................................saved...........................................")
     return render(request,"pages/global_market_edit.html")
 
 def delete_GlobalMarketPic(request):
@@ -998,7 +952,6 @@ def TopSection_save(request):
         obj.save()
 
     obj.save()
-    print("saved")
     return render(request,"pages/service_edit.html")
 
 def WhatWedo_save(request):
@@ -1133,8 +1086,6 @@ def StateGovtFundSecondSection_save(request):
         obj = StateGovtFundSecondSection(image=obj.image,Main_Heading=Main_Heading,Sub_Heading=Sub_Heading,Point_1=Point_1,Point_2=Point_2,Point_3=Point_3)
         obj.save()
 
-    print("saved")
-
     return render(request,"pages/state_govt_fund_edit.html")
 
 
@@ -1146,8 +1097,6 @@ def StateGovtFundEligibilitySection_save(request):
 
     obj = StateGovtFundEligibilitySection(Sub_Heading=Sub_Heading,Point_1=Point_1,Point_2=Point_2,Point_3=Point_3)
     obj.save()
-
-    print('saved')
 
     return render(request,"pages/state_govt_fund_edit.html")
 
@@ -1185,14 +1134,12 @@ def Start_UpTNimg2_save(request):
     image = request.FILES['#fileInput-single2']
     obj = Start_UpTNimg2(image=image)
     obj.save()
-    print("saved")
     return render(request,"pages/startupTN_edit.html")
 
 
 
 def CentralGovernmentFunding (request):
     data = CentralGovernmentFundingDB.objects.all()[::-1]
-    print(data)
     return render(request,"central_govt_fund.html",reguler_datas({'mentor':data,'sample':'hi'}))
 
 @login_required(login_url='/FourNotFout')
@@ -1203,9 +1150,6 @@ def CentralGovernmentFunding_save(request):
     content = request.POST.get('#content')
     obj = CentralGovernmentFundingDB(Content=content)
     obj.save()
-    for i in CentralGovernmentFundingDB.objects.all():
-        print(i.Content)
-    print("saved.....................................////////////////////////")
     return render(request,"edtior/CentralGovernmentFunding_edit.html")
 
 def samridth (request):
@@ -1285,9 +1229,6 @@ def EDI_Overview_Section_save(request):
     
     obj = EDI_Overview_Section(point_1=point_1,point_2=point_2,point_3=point_3)
     obj.save()
-
-    for i in EDI_Eligibility_Section.objects.all():
-        print(i.point_1,i.point_2)
     return render(request,"pages/samridth_edit.html")
 
 
@@ -1321,10 +1262,10 @@ def EDI_Eligibility_Section_save(request):
 #............................................................
 #...............fishieries.........................................
 def fishieriespage(request):
-    return render(request,"fisheries.html",freguler_datas(reguler_datas()))
+    return render(request,"fisheries.html",reguler_datas(freguler_datas(reguler_datas())))
 
 def update_fishieries(request):
-    return render(request,"home/fishieries.html",freguler_datas(reguler_datas()))
+    return render(request,"home/fishieries.html",reguler_datas(freguler_datas(reguler_datas())))
 
 def upload_fishieries(request):
     Reson = request.POST.get("#reson")
@@ -1355,21 +1296,13 @@ def set_fishieries(request):
 #............................................................
 #...............fishieries.........................................
 def download_file(request):
-    # Define Django project base directory
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    # Define text file name
     filename = 'test.txt'
-    # Define the full file path
     filepath = BASE_DIR + '/downloadapp/Files/' + filename
-    # Open the file for reading content
     path = open(filepath, 'r')
-    # Set the mime type
     mime_type, _ = mimetypes.guess_type(filepath)
-    # Set the return value of the HttpResponse
     response = HttpResponse(path, content_type=mime_type)
-    # Set the HTTP header for sending to browser
     response['Content-Disposition'] = "attachment; filename=%s" % filename
-    # Return the response value
     return response
 
 
@@ -1387,8 +1320,7 @@ def convert_excel(request):
         for j,y in enumerate(row_data):
             cell_obj = sheet.cell(row = i+1, column = j+1)
             cell_obj.value = y
-            print(i,j)
-    wb.save(filepath) 
+    wb.save(filepath)
     filename = 'Datas.xlsx'
     path = open(filepath, 'rb')
     mime_type, _ = mimetypes.guess_type(filepath)
@@ -1410,7 +1342,6 @@ def carrer_convert_excel(request):
         for j,y in enumerate(row_data):
             cell_obj = sheet.cell(row = i+1, column = j+1)
             cell_obj.value = y
-            print(i,j)
     wb.save(filepath) 
     filename = 'Datas.xlsx'
     path = open(filepath, 'rb')
@@ -1465,3 +1396,109 @@ def SocialMediaLinks_save(request):
     obj = SocialMediaLinks(Twitter=Twitter,Facebook=Facebook,Instagram=Instagram,LinkedIn=LinkedIn)
     obj.save()
     return render(request,"footer_edit.html",reguler_datas())
+
+def download_pdf(request):
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    filename = 'test.txt'
+    filepath = BASE_DIR + '/downloadapp/Files/' + filename
+    path = open(filepath, 'r')
+    mime_type, _ = mimetypes.guess_type(filepath)
+    response = HttpResponse(path, content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    return response
+
+
+def category(request):
+    return render(request,"pages/category.html",reguler_datas())
+
+
+def CategoryforGallery_save(request):
+    val = request.POST.get("#Appear1")
+    print(val)
+    obj = CategoryforGallery(cat_val=val)
+    obj.save()
+    return render(request,"pages/category.html",reguler_datas())
+
+def delete_CategoryforGallery(request):
+    id = request.POST.get("id")
+    image = CategoryforGallery.objects.get(id=id)
+    image.delete()
+    return render(request,"about_us/team.html")
+
+
+def CategoryforTeams_save(request):
+    val = request.POST.get("#Appear2")
+    obj = CategoryforTeams(cat_val=val)
+    obj.save()
+    return render(request,"pages/category.html",reguler_datas())
+def delete_CategoryforTeams(request):
+    id = request.POST.get("id")
+    image = CategoryforTeams.objects.get(id=id)
+    image.delete()
+    return render(request,"about_us/team.html")
+
+
+def CategoryforEvents_save(request):
+    val = request.POST.get("#Appear3")
+    obj = CategoryforEvents(cat_val=val)
+    obj.save()
+    return render(request,"pages/category.html",reguler_datas())
+
+def delete_CategoryforEvents(request):
+    id = request.POST.get("id")
+    image = CategoryforEvents.objects.get(id=id)
+    image.delete()
+    return render(request,"about_us/team.html")
+
+
+def CategoryforQualification_save(request):
+    val = request.POST.get("#Appear4")
+    obj = CategoryforQualification(cat_val=val)
+    obj.save()
+    return render(request,"pages/category.html",reguler_datas())
+
+def delete_CategoryforQualification(request):
+    id = request.POST.get("id")
+    image = CategoryforQualification.objects.get(id=id)
+    image.delete()
+    return render(request,"about_us/team.html")
+
+
+def CategoryforExperience_save(request):
+    val = request.POST.get("#Appear5")
+    obj = CategoryforExperience(cat_val=val)
+    obj.save()
+    return render(request,"pages/category.html",reguler_datas())
+
+def delete_CategoryforExperience(request):
+    id = request.POST.get("id")
+    image = CategoryforExperience.objects.get(id=id)
+    image.delete()
+    return render(request,"about_us/team.html")
+
+
+def CategoryforBlogs_save(request):
+    val = request.POST.get("#Appear6")
+    obj = CategoryforBlogs(cat_val=val)
+    obj.save()
+    return render(request,"pages/category.html",reguler_datas())
+
+
+def delete_CategoryforBlogs(request):
+    id = request.POST.get("id")
+    image = CategoryforBlogs.objects.get(id=id)
+    image.delete()
+    return render(request,"about_us/team.html")
+
+
+def CategoryforStartups_save(request):
+    val = request.POST.get("#Appear7")
+    obj = CategoryforStartups(cat_val=val)
+    obj.save()
+    return render(request,"pages/category.html",reguler_datas())
+
+def delete_CategoryforStartups(request):
+    id = request.POST.get("id")
+    image = CategoryforStartups.objects.get(id=id)
+    image.delete()
+    return render(request,"about_us/team.html")

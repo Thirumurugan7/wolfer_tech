@@ -406,30 +406,26 @@
                   </div>
                 </div>
 
-                <div class="form-floating mb-4">
-                    <input id="Qualification" type="text" name="Qualification" class="form-control" placeholder="Jane" required="required" data-error="Name is required.">
-                    <label for="form_name2">Qualification *</label>
+                <div class="form-group">
+                  <label for="cars">Qualification</label>
+                          <select class="form-control" name="Category" id="Qualification">
+                            {% for i in CategoryforQualification %}
+                            <option value="{{ i.cat_val }}">{{ i.cat_val }}</option>
+                            {% endfor %}
                     
-                    <div class="valid-feedback">
-                      Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                      Please enter your Qualification.
-                    </div>
-                  </div>
+                          </select>
+                </div>
 
 
-                  <div class="form-floating mb-4">
-                    <input id="Experience" type="text" name="name" class="form-control" placeholder="Jane" required="required" data-error="Name is required.">
-                    <label for="form_name2">Experience *</label>
+                <div class="form-group">
+                  <label for="cars">#Experience</label>
+                          <select class="form-control" name="Category" id="Experience">
+                            {% for i in CategoryforExperience %}
+                            <option value="{{ i.cat_val }}">{{ i.cat_val }}</option>
+                            {% endfor %}
                     
-                    <div class="valid-feedback">
-                      Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                      Please enter your Experience.
-                    </div>
-                  </div>
+                          </select>
+                </div>
 
                 
                 <div class="form-floating mb-4">
@@ -563,7 +559,7 @@
                   <a href="{{ SocialMediaLinks.0.Twitter }}"><iconify-icon icon="ri:twitter-line"></iconify-icon></a>
                   <a href="{{ SocialMediaLinks.0.Facebook }}"><iconify-icon icon="uil:facebook"></iconify-icon></a>
                 
-                  <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="ph:instagram-logo" ></iconify-icon></a>
+                  <a href="{{ SocialMediaLinks.0.Instagram }}"><iconify-icon icon="ph:instagram-logo"   ></iconify-icon></a>
                   <a href="{{ SocialMediaLinks.0.LinkedIn }}"><iconify-icon icon="circum:linkedin"></iconify-icon></a>
                 </nav>
                 <!-- /.social -->
@@ -609,7 +605,7 @@
             });
     }
     function img_upload(url,img,datas) {
-            console.log(datas,img)
+
             var data = new FormData();
             data.append(img, $(img)[0].files[0]);
             data.append("csrfmiddlewaretoken", $("input[name=csrfmiddlewaretoken]").val());
@@ -624,12 +620,7 @@
                 mimeType: "multipart/form-data",
                 data: data,
                 success: function(data) {
-                    if (data.status == "Upload Done") {
-                        console.log("Uploading Done successfully")
-                    }
-                    else{
-                        console.log('error')
-                    }
+                   window.location.reload();
                 },
                 error: function (error) {
                     alert("The given datas are not updated please give valued datas\n"+'error; ' + eval(error));

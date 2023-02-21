@@ -151,7 +151,7 @@
             }
           function send_data(url,datas) {
             
-            console.log(datas,url)
+           
             var data = new FormData();
             data.append("csrfmiddlewaretoken", $("input[name=csrfmiddlewaretoken]").val());
             for(let i=0;i<datas.length;i++){

@@ -249,10 +249,15 @@
                         <label for="exampleInputEmail1">Position</label>
                         <input type="text" class="form-control" placeholder="position" id="position" name="position">
                       </div>                    
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">categories</label>
-                      <input type="text" class="form-control" placeholder="Category" id="Category" name="Category">
-                    </div>
+                      <div class="form-group">
+                        <label for="cars">categories</label>
+                                <select class="form-control" name="Category" id="Category">
+                                  {% for i in CategoryforTeams %}
+                                  <option value="{{ i.cat_val }}">{{ i.cat_val }}</option>
+                                  {% endfor %}
+                          
+                                </select>
+                      </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Linkedin Url</label>
                       <input type="text" class="form-control" placeholder="linkedin" id="linkedin" name="linkedin">
@@ -321,12 +326,7 @@
                     mimeType: "multipart/form-data",
                     data: data,
                     success: function(data) {
-                        if (data.status == "Upload Done") {
-                            console.log("Uploading Done successfully")
-                        }
-                        else{
-                            console.log('error')
-                        }
+                       window.location.reload()
                     }
                 })
         }
@@ -375,12 +375,7 @@
                     mimeType: "multipart/form-data",
                     data: data,
                     success: function(data) {
-                        if (data.status == "Upload Done") {
-                            console.log("Uploading Done successfully")
-                        }
-                        else{
-                            console.log('error')
-                        }
+                       window.location.reload()
                     }
                 })
         }
