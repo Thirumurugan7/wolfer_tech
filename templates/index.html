@@ -57,7 +57,7 @@
     
     <header class="wrapper bg-soft-primary" >
       
-        <div class="bg-soft-primary flex justify-content-around logo-header " style="display:flex; justify-content: space-between; align-items: center; padding-top: 0px; height: 60px; flex-wrap: wrap; ">
+        <div class="bg-soft-primary flex justify-content-around logo-header " style="display:flex; justify-content: space-between; align-items: center; padding-top: 0px;  height: 60px; flex-wrap: wrap; ">
           <img class="" style="width:70px; height: full;" src="https://img.freepik.com/free-vector/abstract-logo-flame-shape_1043-44.jpg?w=740&t=st=1677070214~exp=1677070814~hmac=d92dcab6c5061d2e6098daa48fe5fa02a0abb4e796db94bcb88c9bf8de8bcfef" alt="">
           <img style="width:70px; height: full;" src="https://img.freepik.com/free-vector/gradient-logo-template-with-abstract-shape_52683-14449.jpg?size=338&ext=jpg" alt="">
           <img class="" style="width:70px; height: full;" src="https://img.freepik.com/free-vector/abstract-logo-flame-shape_1043-44.jpg?w=740&t=st=1677070214~exp=1677070814~hmac=d92dcab6c5061d2e6098daa48fe5fa02a0abb4e796db94bcb88c9bf8de8bcfef" alt="">
@@ -67,7 +67,7 @@
           <img class="" style="width:70px; height: full;" src="https://img.freepik.com/free-vector/abstract-logo-flame-shape_1043-44.jpg?w=740&t=st=1677070214~exp=1677070814~hmac=d92dcab6c5061d2e6098daa48fe5fa02a0abb4e796db94bcb88c9bf8de8bcfef" alt="">
           <img style="width:70px; height: full;" src="https://img.freepik.com/free-vector/gradient-logo-template-with-abstract-shape_52683-14449.jpg?size=338&ext=jpg" alt="">
                 </div>
-                <br />
+               
 
                 
 
@@ -258,13 +258,22 @@
                   >
              
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown ">
                   <a
                     class="nav-link  "
-                    href="/ourstartups"
+                    href="#"
+                    data-bs-toggle="dropdown"
                     
                     >Our Startups</a
                   >
+                  <ul class="dropdown-menu">
+                    <li class="dropdown dropdown-submenu dropend">
+                      <a href="/ourstartups"  class="dropdown-item">Startup</a>
+                    </li>
+                    <li class="dropdown dropdown-submenu dropend">
+                      <a href="{{ link.0.link }}"  class="dropdown-item">Download</a>
+                    </li>
+                  </ul>
              
                 </li>
                 <li class="nav-item">

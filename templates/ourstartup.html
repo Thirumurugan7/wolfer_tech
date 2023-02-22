@@ -15,6 +15,39 @@
   <link rel="stylesheet" href=" {% static 'assets/css/style.css' %} " />
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css' %}" rel="stylesheet">
 </head>
+<style>
+  .swiper-button{
+    visibility: hidden;
+  }
+  #feedback{
+
+    width: auto;
+    position: fixed;
+    bottom: 25%;
+    z-index: 999;
+    left: -95px !important;
+    transform: rotate(270deg);
+    transition: .5s;
+  }
+  #feedback a {
+    text-align: center;
+    display: block;
+    background: #224adb;
+    width: auto;
+    padding: 8px 35px 8px 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: .5s;
+    position: relative;
+}
+@media only screen and (max-width: 600px) {
+.logo-header{
+  display: none;
+}
+}
+ </style>
 <body>
   <div class="content-wrapper">
     <header class="wrapper bg-soft-primary">
@@ -427,6 +460,9 @@
       </div>
       <!-- /.offcanvas -->
     </header><br>
+    <div id="feedback" style="display: flex; justify-content: center; align-items: center; margin: 0px; padding: 0px;">
+      <a href="https://www.ciic.ventures/wp-content/uploads/2022/02/113-CIIC-Startups-Compendium-compressed.pdf" target="_blank" ><span>Download Startups</span><iconify-icon style="margin-left: 10px;" icon="material-symbols:download" width="25" height="25"></iconify-icon></a>
+    </div>
     <section class="wrapper bg-light">
         <div class="container py-14 py-md-93 text-center">
         <h2 class="display-4 mb-3">Our Startups</h2>

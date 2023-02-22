@@ -251,6 +251,8 @@ urlpatterns = [
     path('delete_CategoryforBlogs',views.delete_CategoryforBlogs),
 
     path('CategoryforStartups_save',views.CategoryforStartups_save),
+    path("tbi_president",views.tbi_president),
+    path("our_campus",views.our_campus),
 
 
 ]

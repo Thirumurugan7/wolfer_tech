@@ -1497,8 +1497,16 @@ def CategoryforStartups_save(request):
     obj.save()
     return render(request,"pages/category.html",reguler_datas())
 
+
 def delete_CategoryforStartups(request):
     id = request.POST.get("id")
     image = CategoryforStartups.objects.get(id=id)
     image.delete()
     return render(request,"about_us/team.html")
+
+def tbi_president(request):
+    return render(request,"TBI_president.html")
+
+def our_campus(request):
+    return render(request,"ourcampus.html")
+
