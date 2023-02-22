@@ -3,6 +3,7 @@
 
 
 {% load static %}
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,6 +42,11 @@
     transition: .5s;
     position: relative;
 }
+@media only screen and (max-width: 600px) {
+.logo-header{
+  display: none;
+}
+}
  </style>
 </head>
 <body>
@@ -49,8 +55,27 @@
   </div>
   <div class="content-wrapper">
     
-    <header class="wrapper bg-soft-primary">
+    <header class="wrapper bg-soft-primary" >
+      
+        <div class="bg-soft-primary flex justify-content-around logo-header " style="display:flex; justify-content: space-between; align-items: center; padding-top: 0px; height: 60px; flex-wrap: wrap; ">
+          <img class="" style="width:70px; height: full;" src="https://img.freepik.com/free-vector/abstract-logo-flame-shape_1043-44.jpg?w=740&t=st=1677070214~exp=1677070814~hmac=d92dcab6c5061d2e6098daa48fe5fa02a0abb4e796db94bcb88c9bf8de8bcfef" alt="">
+          <img style="width:70px; height: full;" src="https://img.freepik.com/free-vector/gradient-logo-template-with-abstract-shape_52683-14449.jpg?size=338&ext=jpg" alt="">
+          <img class="" style="width:70px; height: full;" src="https://img.freepik.com/free-vector/abstract-logo-flame-shape_1043-44.jpg?w=740&t=st=1677070214~exp=1677070814~hmac=d92dcab6c5061d2e6098daa48fe5fa02a0abb4e796db94bcb88c9bf8de8bcfef" alt="">
+          <img style="width:70px; height: full;" src="https://img.freepik.com/free-vector/gradient-logo-template-with-abstract-shape_52683-14449.jpg?size=338&ext=jpg" alt="">
+          <img class="" style="width:70px; height: full;" src="https://img.freepik.com/free-vector/abstract-logo-flame-shape_1043-44.jpg?w=740&t=st=1677070214~exp=1677070814~hmac=d92dcab6c5061d2e6098daa48fe5fa02a0abb4e796db94bcb88c9bf8de8bcfef" alt="">
+          <img style="width:70px; height: full;" src="https://img.freepik.com/free-vector/gradient-logo-template-with-abstract-shape_52683-14449.jpg?size=338&ext=jpg" alt="">
+          <img class="" style="width:70px; height: full;" src="https://img.freepik.com/free-vector/abstract-logo-flame-shape_1043-44.jpg?w=740&t=st=1677070214~exp=1677070814~hmac=d92dcab6c5061d2e6098daa48fe5fa02a0abb4e796db94bcb88c9bf8de8bcfef" alt="">
+          <img style="width:70px; height: full;" src="https://img.freepik.com/free-vector/gradient-logo-template-with-abstract-shape_52683-14449.jpg?size=338&ext=jpg" alt="">
+                </div>
+                <br />
+
+                
+
       <nav class="navbar navbar-expand-lg center-nav transparent position-absolute navbar-dark caret-none" style="height:75px;">
+     
+     
+     
+
         <div class="container flex-lg-row flex-nowrap align-items-center">
           <div class="navbar-brand w-100">
             <a href="/">
